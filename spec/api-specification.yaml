@@ -1,0 +1,25 @@
+openapi: "3.0.3"
+info:
+  title: My New Project
+  description: Description of my new project
+  version: "1.0.0"
+servers:
+  - url: http://localhost:7101
+components:
+  responses:
+    HealthyResponse:
+      description: Response indicating working condition of the app
+      content:
+        application/text:
+          schema:
+            type: string
+            example: "OK"
+paths:
+  /health:
+    get:
+      operationId: controllers.health.check_health
+      responses:
+        200:
+          $ref: "#/components/responses/HealthyResponse"
+      tags:
+      - health
