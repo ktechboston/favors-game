@@ -37,9 +37,11 @@ Setup
 3. Use the provided docker-compose file to start a webserver
    - `docker-compose up --build`
    - Note: some users will have to run docker-compose as root (using `sudo`)
-4. Use your browser to visit `localhost:7101/api/ui`
+   - You will need rebuild each time you change api specs to create an app with updated code 
+4. Use your browser to visit `localhost:7101/ui`
 5. Use the interface to make a request to the `health` endpoint
 6. Your web server is running!
+7. Run `docker-compose down` to shut down the application. 
 
 ### Guide: Making a Simple Route
 
@@ -66,7 +68,7 @@ latest version, no matter where it stopped getting updates. We use `dbmate` to m
 #### Instructions
 
 1. Use `dbmate` to create a new migrations file using docker
-   - `docker run -v /path/to/your/project/db/migrations/:/db/migrations/ dbmate new name-describing-target-changes`
+   - `docker run -v /path/to/your/project/db/migrations/:/db/migrations/ amacneil/dbmate new name-describing-target-changes`
 2. Open the file created in folder [db/migrations](db/migrations)
 3. In the section headed by the annotation `-- migrate:up`, write the SQL statements needed to change the database
    contents to the new desired state

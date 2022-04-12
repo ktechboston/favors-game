@@ -2,7 +2,7 @@ version: '3.8'
 services:
     docker_postgres:
         image: postgres:11.10
-        container_name: "docker_postgres"
+        container_name: "docker_postgres_favors_game"
         ports:
             - 5433:5432
         env_file: .env

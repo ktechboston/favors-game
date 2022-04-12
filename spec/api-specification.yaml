@@ -10,7 +10,7 @@ components:
     HealthyResponse:
       description: Response indicating working condition of the app
       content:
-        application/text:
+        text/plain:
           schema:
             type: string
             example: "OK"
