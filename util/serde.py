@@ -1,5 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
+from sqlalchemy.engine import Row
 from connexion.apps.flask_app import FlaskJSONEncoder
 
 
@@ -7,6 +8,9 @@ class ComplexObjectJSONEncoder(FlaskJSONEncoder):
     def default(self, o):
         if isinstance(o, DictSerializableMixin):
             return o.to_dict()
+        elif isinstance(o, Row):
+            # Allow for easy serialization of output from SQLAlchemy query results
+            return dict(o)
         elif isinstance(o, type):
             return o.__name__
         else:

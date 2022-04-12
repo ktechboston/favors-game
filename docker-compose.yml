@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+    docker_postgres:
+        image: postgres:11.10
+        container_name: "docker_postgres"
+        ports:
+            - 5433:5432
+        env_file: .env
+        environment:
+            POSTGRES_DB: my_application
+            POSTGRES_USER: my_application
+            POSTGRES_PASSWORD: superinsecuredevpassword
+            PGDATA: /var/lib/postgresql/data/pgdata
+        volumes:
+            - app-development-database:/var/lib/postgresql/data/pgdata
+
+    db_migrate:
+        build:
+            context: .
+            dockerfile: migration.Dockerfile
+        container_name: "migration_runner"
+        depends_on:
+            - docker_postgres
+        env_file: .env
+        command:
+            - "--wait"
+            - "migrate"
+
+    app_api:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        depends_on:
+           - db_migrate
+        env_file: .env
+        ports:
+          - "7101:7101"
+
+volumes:
+    app-development-database:
